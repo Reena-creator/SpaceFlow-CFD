@@ -2,7 +2,7 @@ import numpy as np
 
 from mesh.mesh import generate_mesh
 from initial_conditions.initial_conditions import gaussian_source
-from solver.poisson_simulation import poisson_solver
+from solver.poisson_solver import poisson_solver
 from visualization.visualization import (
     plot_poisson_solution,
     plot_residual_history,

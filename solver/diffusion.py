@@ -3,29 +3,47 @@ import matplotlib.pyplot as plt
 import config as cfg
 from mesh.mesh import generate_mesh
 from initial_conditions.initial_conditions import gaussian_pulse
-
-from solver.solver import solve_diffusion
 from boundary.boundary import apply_bc
 from visualization.visualization import plot_field, plot_residual_history
 
-def run_diffusion_simulation():
-    X,Y = generate_mesh(cfg.Lx, cfg.Ly, cfg.Nx, cfg.Ny)
-    u = gaussian_pulse(X, Y)
-    residual_history = []
+def solve_diffusion(u, D, dt, dx, dy, Nx, Ny):
 
-    for n in range(cfg.nt):
-        u_old = u.copy()
-        u = solve_diffusion(u, cfg.D, cfg.dt, cfg.dx, cfg.dy, cfg.Nx, cfg.Ny)
+    u_new = u.copy()
 
-        u = apply_bc(u, "neumann")
-        residual = np.max(np.abs(u-u_old))
-        residual_history.append(residual)
-        if n % 10 == 0:
-            plot_field(X, Y, u, n) 
-            if residual<cfg.tolerance:
-                print(f"Converged at step {n}")
-                break
+    # for i in range(1, Ny-1):
+    #     for j in range(1, Nx-1):
 
-    plot_residual_history(residual_history)
-    
-    return u, residual_history
+    #         diffusion_x = (
+    #             u[i,j+1]
+    #             - 2*u[i,j]
+    #             + u[i,j-1]
+    #         ) / dx**2
+
+    #         diffusion_y = (
+    #             u[i+1,j]
+    #             - 2*u[i,j]
+    #             + u[i-1,j]
+    #         ) / dy**2
+
+    #         u_new[i,j] = (
+    #             u[i,j]
+    #             + D*dt*(diffusion_x + diffusion_y)
+    #         )
+    diffusion_x = (
+        u[1:-1,2:]
+        - 2*u[1:-1,1:-1]
+        + u[1:-1,:-2]
+    ) / dx**2
+
+    diffusion_y = (
+        u[2:,1:-1]
+        - 2*u[1:-1,1:-1]
+        + u[:-2,1:-1]
+    ) / dy**2
+
+    u_new[1:-1,1:-1] = (
+        u[1:-1,1:-1] 
+        +D*dt*(diffusion_x + diffusion_y)
+    )
+
+    return u_new
