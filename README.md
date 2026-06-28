@@ -237,7 +237,7 @@ Residual history showing convergence of the numerical solution.
 Validation of numerical accuracy through mesh refinement.
 
 <p align="center">
-  <img src="results/validation/grid_independence.png" width="700">
+  <img src="results/validation/Grid_Independence.png" width="700">
 </p>
 ---
 
