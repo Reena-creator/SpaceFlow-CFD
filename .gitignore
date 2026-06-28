@@ -11,11 +11,5 @@ env/
 # VS Code settings
 .vscode/
 
-# macOS
-.DS_Store
-
-# Output folders
-results/
-
 # Temporary files
 *.log
