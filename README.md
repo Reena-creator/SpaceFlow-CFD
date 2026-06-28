@@ -239,6 +239,7 @@ Validation of numerical accuracy through mesh refinement.
 <p align="center">
   <img src="results/validation/Grid_Independence.png" width="700">
 </p>
+
 ---
 
 ## 🚀 Future Scope
