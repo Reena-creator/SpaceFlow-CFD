@@ -16,3 +16,7 @@ dt = 0.001
 nt = 1000
 
 tolerance = 1e-6
+
+CFL = 0.5
+
+t_final = 0.2

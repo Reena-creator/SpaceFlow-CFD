@@ -4,34 +4,39 @@ def plot_field(X, Y, field, n):
 
     plt.clf()
 
-    plt.contourf(X, Y, field, levels=50, cmap="coolwarm")
+    plt.contourf(X, Y, field, levels=50, cmap="coolwarm", vmin=0, vmax=1)
 
-    plt.colorbar()
+    plt.colorbar(label="Scalar Field")
 
     plt.xlabel("X")
     plt.ylabel("Y")
 
     plt.title(f"Time Step = {n}")
-
+    plt.tight_layout()
     plt.pause(0.01)
+    save_figure("Plot.png")
 
 def plot_poisson_solution(X, Y, phi):
     plt.figure(figsize=(8,6))
-    plt.contourf(X, Y, phi, levels=100, cmap="coolwarm")
+    plt.contourf(X, Y, phi, levels=100, cmap="coolwarm", vmin=0, vmax=1)
     plt.colorbar(label="Phi")
     plt.xlabel("X")
     plt.ylabel("Y")
     plt.title("Poisson Equation Solution")
+    plt.tight_layout()
     plt.show()
+    save_figure("Poisson_plot.png")
 
 def plot_residual_history(residual_history):
     plt.figure(figsize=(8,5))
-    plt.semilogy(residual_history)
+    plt.semilogy(residual_history, linewidth=2)
     plt.xlabel("Iteration")
     plt.ylabel("Residual")
-    plt.title("Residual History")
+    plt.title("Residual Convergence History")
     plt.grid(True)
+    plt.tight_layout()
     plt.show()
+    save_figure("Residual.png")
 
 def plot_grid_convergence(grid_sizes, errors):
     plt.figure()
@@ -40,4 +45,24 @@ def plot_grid_convergence(grid_sizes, errors):
     plt.ylabel("Error")
     plt.title("Grid Convergence Study")
     plt.grid()
-    plt.show
+    plt.show()
+    save_figure("Grid_Convergence.png")
+
+def plot_grid_independence(mesh_sizes, peak_values):
+    plt.figure(figsize=(6,4))
+    plt.plot(mesh_sizes, peak_values, marker="o", linewidth=2, markersize=8)
+    plt.xlabel("Grid Size")
+    plt.ylabel("Peak Value")
+    plt.title("Grid Independence Study")
+    plt.grid(True, linestyle="--", alpha=0.5)
+    plt.tight_layout()
+    plt.show()
+    save_figure("Grid_Independence.png")
+
+def save_figure(filename):
+    plt.tight_layout()
+    plt.savefig(
+        f"results/{filename}",
+        dpi=300,
+        bbox_inches="tight"
+    )

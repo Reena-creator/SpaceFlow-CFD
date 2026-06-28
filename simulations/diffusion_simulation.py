@@ -3,7 +3,7 @@ import numpy as np
 from mesh.mesh import generate_mesh
 from boundary.boundary import apply_bc
 from initial_conditions.initial_conditions import gaussian_pulse
-from solver.diffusion import solve_diffusion
+from solvers.diffusion import solve_diffusion
 from visualization.visualization import plot_field, plot_residual_history
 
 def run_diffusion_simulation():

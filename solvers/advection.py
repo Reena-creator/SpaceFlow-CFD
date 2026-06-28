@@ -49,3 +49,22 @@ def solve_advection_central(u, cx, cy, dt, dx, dy, Nx, Ny):
             )
 
     return u_new
+
+def advection_solver(u, cx, cy, dt, dx, dy, Nx, Ny, scheme = "upwind"):
+    u_new = u.copy()
+
+    for i in range(1, Ny-1):
+        for j in range(1, Nx-1):
+            if scheme == "upwind":
+                dudx = (u[i,j] - u[i,j-1])/dx
+                dudy = (u[i,j] - u[i-1,j])/dy
+            elif scheme == "central":
+                dudx = (u[i,j+1] - u[i,j-1])/(2*dx)
+                dudy = (u[i+1,j] - u[i-1,j])/(2*dy)
+            else:
+                raise ValueError("Unknown scheme.")
+            u_new[i, j] = u[i, j] - dt * (
+                cx * dudx +
+                cy * dudy
+            )
+    return u_new
