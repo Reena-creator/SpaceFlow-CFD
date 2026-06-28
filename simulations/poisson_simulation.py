@@ -6,6 +6,7 @@ from solvers.poisson_solver import poisson_solver
 from visualization.visualization import (
     plot_poisson_solution,
     plot_residual_history,
+    save_final_field
 )
 
 import config as cfg
@@ -33,6 +34,5 @@ def run_poisson_simulation():
         tolerance=cfg.tolerance
     )
 
-    plot_poisson_solution(X, Y, phi)
-
-    plot_residual_history(residual_history)
+    plot_residual_history(residual_history, "poisson/residual.png")
+    save_final_field(X, Y, b, "poisson/Poisson Solution", "poisson/poisson.png")

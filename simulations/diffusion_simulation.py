@@ -4,7 +4,7 @@ from mesh.mesh import generate_mesh
 from boundary.boundary import apply_bc
 from initial_conditions.initial_conditions import gaussian_pulse
 from solvers.diffusion import solve_diffusion
-from visualization.visualization import plot_field, plot_residual_history
+from visualization.visualization import plot_field, plot_residual_history, save_final_field
 
 def run_diffusion_simulation():
     X,Y = generate_mesh(cfg.Lx, cfg.Ly, cfg.Nx, cfg.Ny)
@@ -24,6 +24,6 @@ def run_diffusion_simulation():
         if n % 10 == 0:
             plot_field(X, Y, u, n) 
 
-    plot_residual_history(residual_history)
-    
+    plot_residual_history(residual_history, "diffusion/residual.png")
+    save_final_field(X, Y, u, "diffusion/Diffusion Solution", "diffusion/diffusion.png")
     return u, residual_history

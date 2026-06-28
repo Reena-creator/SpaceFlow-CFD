@@ -4,7 +4,7 @@ from mesh.mesh import generate_mesh
 from initial_conditions.initial_conditions import gaussian_pulse
 from boundary.boundary import apply_bc
 from solvers.advection import advection_solver
-from visualization.visualization import plot_field, plot_residual_history
+from visualization.visualization import plot_field, plot_residual_history, save_final_field
 from utils.cfl import compute_cfl
 
 def run_advection_simulation(Nx=cfg.Nx, Ny=cfg.Ny, scheme="upwind", show_plots=True):
@@ -37,5 +37,6 @@ def run_advection_simulation(Nx=cfg.Nx, Ny=cfg.Ny, scheme="upwind", show_plots=T
         if show_plots and n % 10 == 0:
             plot_field(X, Y, u, n) 
     if show_plots:
-        plot_residual_history(residual_history)
+        plot_residual_history(residual_history, "advection/residual.png")
+        save_final_field(X,Y,u, "advection/Advection Solution", "advection/advection.png")
     return X, Y, u, residual_history

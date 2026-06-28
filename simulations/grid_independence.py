@@ -1,5 +1,5 @@
 import numpy as np
-from visualization.visualization import plot_grid_independence
+from visualization.visualization import plot_grid_independence, plot_grid_convergence
 from simulations.advection_simulation import run_advection_simulation
 
 def run_grid_independence():
@@ -15,5 +15,4 @@ def run_grid_independence():
     print("\nGrid Independence Results")
     for N, peak in zip(mesh_sizes, peak_values):
         print(f"{N} x {N} --> {peak:.6f}")
-
-    plot_grid_independence(mesh_sizes, peak_values)
+    plot_grid_independence(mesh_sizes, peak_values, "validation/Grid_Independence.png")

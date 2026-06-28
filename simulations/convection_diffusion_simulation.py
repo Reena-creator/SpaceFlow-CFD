@@ -4,7 +4,7 @@ from mesh.mesh import generate_mesh
 from initial_conditions.initial_conditions import gaussian_pulse
 from boundary.boundary import apply_bc
 from solvers.convection_diffusion import solve_advection_diffusion
-from visualization.visualization import plot_field, plot_residual_history
+from visualization.visualization import plot_field, plot_residual_history, save_final_field
 from utils.cfl import compute_cfl
 from utils.error_norms import l1_norm, l2_norm, linf_norm
 from utils.timer import start_timer, stop_timer
@@ -34,7 +34,8 @@ def run_advection_diffusion_simulation():
         if n % 10 == 0:
             plot_field(X, Y, u, n) 
 
-    plot_residual_history(residual_history)
+    plot_residual_history(residual_history, "convection_diffusion/residual.png")
+    save_final_field(X, Y, u, "convection_diffusion/Convection-Diffusion Solution", "convection_diffusion/convection-diffusion.png")
     error = u - u_old
     print("\nError Norms")
     print(f"L1 = {l1_norm(error):.6e}")
